@@ -11,9 +11,7 @@ import SwiftUI
 struct TestCodeApp: App {
     var body: some Scene {
         WindowGroup {
-//            ListBuilder().build()
-//            TabBarView(selectedTab: .home)
-            TestProgressBarBuilder().build()
+            MainMenuBuilder().build()
         }
     }
 }

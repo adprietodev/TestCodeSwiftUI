@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CustomSearchBarView: View {
-    @State private var isSearching = false
     @Binding var searchText: String
+    @State private var isSearching = false
+    @State private var cancelTextOpacity = 0.0
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -18,15 +19,15 @@ struct CustomSearchBarView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 
-                TextField("Search", text: $searchText)
+                TextField("buscar", text: $searchText)
                     .textFieldStyle(PlainTextFieldStyle())
                     .focused($isFocused)
                     .padding(8)
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
-                    .onChange(of: isFocused) { newValue in
+                    .onChange(of: isFocused) {
                         withAnimation {
-                            isSearching = newValue
+                            isSearching = isFocused
                         }
                     }
                 
@@ -52,13 +53,29 @@ struct CustomSearchBarView: View {
                 }) {
                     Text("Cancelar")
                         .foregroundColor(.blue)
+                        .transition(.move(edge: .trailing))
+                        .opacity(cancelTextOpacity)
+                        .animation(.easeInOut, value: isSearching)
+                        .onAppear {
+                            withAnimation {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    cancelTextOpacity = 1
+                                }
+                            }
+                        }
+                        .onDisappear {
+                            cancelTextOpacity = 0
+                        }
                 }
-                .transition(.move(edge: .trailing))
-                .animation(.easeInOut, value: isSearching)
             }
+
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
         .animation(.easeInOut, value: isSearching)
     }
+}
+
+#Preview {
+    ListBuilder().build()
 }
