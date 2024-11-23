@@ -14,14 +14,13 @@ struct CustomProgressBarView: View {
     @State private var weigthMainBar: CGFloat = 0
     
     enum BarState {
-        case idle         // Barra sin animación
-        case expanding    // Barra animándose para expandirse
-        case collapsing   // Barra animándose para contraerse
+        case idle
+        case expanding
+        case collapsing
     }
     
     var body: some View {
         ZStack(alignment: .leading) {
-            // Fondo de la barra
             Rectangle()
                 .fill(Color.gray.opacity(0.3))
                 .frame(height: 4)
@@ -33,13 +32,11 @@ struct CustomProgressBarView: View {
                         }
                     }
                 )
-            
-            // Barra activa
+
             Rectangle()
                 .fill(Color.black)
                 .frame(width: widthForState(), height: 4)
                 .clipShape(RoundedCornersShape.forStep(step, color: .black))
-                .animation(.easeInOut(duration: 0.5), value: barState)
                 .onAppear {
                     updateBarState()
                 }
