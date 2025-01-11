@@ -12,7 +12,7 @@ struct ListView: View {
     
     var body: some View {
         NavigationStack {
-            CustomSearchBarView(searchText: $viewModel.uiState.searchText)
+            CustomSearchBarView(searchText: $viewModel.uiState.searchText) 
             List {
                 ForEach(viewModel.posts) { post in
                     cardPost(post: post)

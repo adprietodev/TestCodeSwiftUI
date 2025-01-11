@@ -12,6 +12,7 @@ struct CustomSearchBarView: View {
     @State private var isSearching = false
     @State private var cancelTextOpacity = 0.0
     @FocusState private var isFocused: Bool
+    var action = {}
     
     var body: some View {
         HStack {
