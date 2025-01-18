@@ -32,11 +32,6 @@ struct MainMenuView: View {
                         CardPost(post: Post.mockPosts[0])
                     }
                 }
-                Section("Test Scanner") {
-                    NavigationLink("Scanner") {
-                        ScannerBuilder().build()
-                    }
-                }
             }
 
         }
