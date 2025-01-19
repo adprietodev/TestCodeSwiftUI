@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class ListViewModel: ObservableObject {
     struct UIState {
@@ -14,4 +15,6 @@ class ListViewModel: ObservableObject {
 
     @Published var uiState = UIState()
     @Published var posts = Post.mockPosts
+
+
 }
