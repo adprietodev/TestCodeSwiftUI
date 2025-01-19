@@ -32,6 +32,11 @@ struct MainMenuView: View {
                         CardPost(post: Post.mockPosts[0])
                     }
                 }
+                Section("Test Permissions") {
+                    NavigationLink("Check Permissions") {
+                        PermissionsBuilder().build()
+                    }
+                }
             }
 
         }

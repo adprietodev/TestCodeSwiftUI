@@ -16,7 +16,7 @@ class LocationUseCase: NSObject, CLLocationManagerDelegate, LocationUseCaseProto
     private let manager = CLLocationManager()
     private let typeRequestLocation: TypeRequestLocation
     
-    init(typeRequestLocation: TypeRequestLocation, accuracy: CLLocationAccuracy) {
+    init(typeRequestLocation: TypeRequestLocation = .always, accuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
         self.typeRequestLocation = typeRequestLocation
         super.init()
         manager.delegate = self
