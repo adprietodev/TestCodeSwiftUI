@@ -12,7 +12,9 @@ class PermissionsBuilder {
         let cameraUseCase = CameraUseCase()
         let galleryUseCase = GalleryUseCase()
         let locationUseCase = LocationUseCase()
-        let viewModel = PermissionsViewModel(cameraUseCase: cameraUseCase, galleryUseCase: galleryUseCase, locationUseCase: locationUseCase)
+        let viewModel = PermissionsViewModel(cameraUseCase: cameraUseCase,
+                                             galleryUseCase: galleryUseCase,
+                                             locationUseCase: locationUseCase)
         return PermissionsView(viewModel: viewModel)
     }
 }

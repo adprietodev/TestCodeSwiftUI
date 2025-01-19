@@ -15,6 +15,13 @@ enum CustomPermissions{
     case restricted
 }
 
+enum AlertType {
+    case location
+    case camera
+    case gallery
+    case error
+}
+
 protocol PermissionsProtocol {
     func hasPermissions() async -> Bool
     func permissionsStatus() async -> CustomPermissions

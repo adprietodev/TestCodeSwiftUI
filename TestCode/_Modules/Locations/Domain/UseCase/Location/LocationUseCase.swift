@@ -16,7 +16,8 @@ class LocationUseCase: NSObject, CLLocationManagerDelegate, LocationUseCaseProto
     private let manager = CLLocationManager()
     private let typeRequestLocation: TypeRequestLocation
     
-    init(typeRequestLocation: TypeRequestLocation = .always, accuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
+    init(typeRequestLocation: TypeRequestLocation = .always,
+         accuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
         self.typeRequestLocation = typeRequestLocation
         super.init()
         manager.delegate = self
@@ -24,7 +25,7 @@ class LocationUseCase: NSObject, CLLocationManagerDelegate, LocationUseCaseProto
     }
 
     func getLocation() -> Coordinate? {
-        var locationStatus = permissionsStatus()
+        let locationStatus = permissionsStatus()
         if locationStatus == .authorized {
             guard let latitude = manager.location?.coordinate.latitude,
                   let longitude = manager.location?.coordinate.longitude else {
