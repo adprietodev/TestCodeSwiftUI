@@ -11,8 +11,8 @@ struct ListView: View {
     @StateObject var viewModel: ListViewModel
     
     var body: some View {
-        VStack {
-            CustomSearchBarView(searchText: $viewModel.uiState.searchText)
+        NavigationStack {
+            CustomSearchBarView(searchText: $viewModel.uiState.searchText) 
             List {
                 ForEach(viewModel.posts) { post in
                     cardPost(post: post)
