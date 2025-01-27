@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol LocationUseCaseProtocol: PermissionsProtocol {
+protocol LocationManagerProtocol: PermissionsProtocol {
     func getLocation() -> Coordinate?
 }

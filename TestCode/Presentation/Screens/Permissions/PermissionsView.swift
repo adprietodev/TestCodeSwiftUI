@@ -108,7 +108,8 @@ struct PermissionsView: View {
         }
         .sheet(isPresented: $showGallery) {
             GalleryView(isMultipleSelection: false,
-                        imagesData: $viewModel.uiState.galleryImageData)
+                        imagesData: $viewModel.uiState.galleryImageData,
+                        error: $viewModel.uiState.error)
         }
         .onAppear {
             viewModel.hasCameraPermission = { hasPermission, status in

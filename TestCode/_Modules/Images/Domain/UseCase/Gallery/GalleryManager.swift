@@ -7,7 +7,7 @@
 
 import Photos
 
-class GalleryUseCase: PermissionsProtocol {
+class GalleryManager: PermissionsProtocol {
     func hasPermissions() async -> Bool {
         switch getStatusPermission() {
         case .authorized:
@@ -38,7 +38,7 @@ class GalleryUseCase: PermissionsProtocol {
     }
 }
 
-private extension GalleryUseCase {
+private extension GalleryManager {
     func requestPermission() async -> PHAuthorizationStatus {
         return await PHPhotoLibrary.requestAuthorization(for: .addOnly)
     }
