@@ -9,12 +9,12 @@ import Foundation
 
 class PermissionsBuilder {
     func build() -> PermissionsView {
-        let cameraUseCase = CameraUseCase()
-        let galleryUseCase = GalleryUseCase()
-        let locationUseCase = LocationUseCase()
-        let viewModel = PermissionsViewModel(cameraUseCase: cameraUseCase,
-                                             galleryUseCase: galleryUseCase,
-                                             locationUseCase: locationUseCase)
+        let cameraManager = CamerManager()
+        let galleryManager = GalleryManager()
+        let locationManager = LocationManager()
+        let viewModel = PermissionsViewModel(cameraManager: cameraManager,
+                                             galleryManager: galleryManager,
+                                             locationManager: locationManager)
         return PermissionsView(viewModel: viewModel)
     }
 }

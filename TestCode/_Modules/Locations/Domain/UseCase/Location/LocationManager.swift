@@ -12,7 +12,7 @@ enum TypeRequestLocation {
     case whenInUse
 }
 
-class LocationUseCase: NSObject, CLLocationManagerDelegate, LocationUseCaseProtocol {
+class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagerProtocol {
     private let manager = CLLocationManager()
     private let typeRequestLocation: TypeRequestLocation
     
@@ -65,7 +65,7 @@ class LocationUseCase: NSObject, CLLocationManagerDelegate, LocationUseCaseProto
     }
 }
 
-private extension LocationUseCase {
+private extension LocationManager {
     func requestPermission() -> CLAuthorizationStatus {
         if permissionsStatus() == .notDetermined {
             switch typeRequestLocation {
