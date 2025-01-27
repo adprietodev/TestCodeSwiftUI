@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-class CameraUseCase: PermissionsProtocol {
+class CamerManager: PermissionsProtocol {
     func hasPermissions() async -> Bool {
         switch await permissionsStatus() {
         case .authorized:
@@ -36,7 +36,7 @@ class CameraUseCase: PermissionsProtocol {
     }
 }
 
-private extension CameraUseCase {
+private extension CamerManager {
     func requestPermission() async -> Bool {
         return await AVCaptureDevice.requestAccess(for: .video)
     }

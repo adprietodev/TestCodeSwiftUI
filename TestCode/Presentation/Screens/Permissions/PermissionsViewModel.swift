@@ -12,45 +12,46 @@ class PermissionsViewModel: ObservableObject {
         var camaraImageData = [Data]()
         var galleryImageData = [Data]()
         var location: Coordinate?
+        var error: AppError?
     }
     
-    private var cameraUseCase: PermissionsProtocol
-    private var galleryUseCase: PermissionsProtocol
-    private var locationUseCase: LocationUseCaseProtocol
+    private var cameraManager: PermissionsProtocol
+    private var galleryManager: PermissionsProtocol
+    private var locationManager: LocationManagerProtocol
     
     @Published var uiState = UIState()
     var hasCameraPermission: ((Bool, CustomPermissions) -> Void)?
     var hasGalleryPermission: ((Bool, CustomPermissions) -> Void)?
     var hasLocationPermission: ((Bool, CustomPermissions) -> Void)?
     
-    init(cameraUseCase: PermissionsProtocol,
-         galleryUseCase: PermissionsProtocol,
-         locationUseCase: LocationUseCaseProtocol) {
-        self.cameraUseCase = cameraUseCase
-        self.galleryUseCase = galleryUseCase
-        self.locationUseCase = locationUseCase
+    init(cameraManager: PermissionsProtocol,
+         galleryManager: PermissionsProtocol,
+         locationManager: LocationManagerProtocol) {
+        self.cameraManager = cameraManager
+        self.galleryManager = galleryManager
+        self.locationManager = locationManager
     }
     
     func checkCameraPermission() {
         Task {
-            let status = await cameraUseCase.permissionsStatus()
-            let hasPermission = await cameraUseCase.hasPermissions()
+            let status = await cameraManager.permissionsStatus()
+            let hasPermission = await cameraManager.hasPermissions()
             hasCameraPermission?(hasPermission, status)
         }
     }
     
     func checkGalleryPermission() {
         Task {
-            let status = await galleryUseCase.permissionsStatus()
-            let hasPermission = await galleryUseCase.hasPermissions()
+            let status = await galleryManager.permissionsStatus()
+            let hasPermission = await galleryManager.hasPermissions()
             hasGalleryPermission?(hasPermission, status)
         }
     }
     
     func checkLocationPermission() {
         Task {
-            let status = await locationUseCase.permissionsStatus()
-            let hasPermission = await locationUseCase.hasPermissions()
+            let status = await locationManager.permissionsStatus()
+            let hasPermission = await locationManager.hasPermissions()
             hasLocationPermission?(hasPermission, status)
         }
     }
@@ -58,7 +59,7 @@ class PermissionsViewModel: ObservableObject {
     @MainActor
     func getLocation() {
         DispatchQueue.main.async {
-            self.uiState.location = self.locationUseCase.getLocation()
+            self.uiState.location = self.locationManager.getLocation()
         }
     }
 }

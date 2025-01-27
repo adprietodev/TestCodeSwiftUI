@@ -14,6 +14,7 @@ struct GalleryView: UIViewControllerRepresentable {
     /// With this variable you can control de selection count of the gallery
     var isMultipleSelection: Bool
     @Binding var imagesData: [Data]
+    @Binding var error: AppError?
 
     // MARK: - Functions
     func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -51,14 +52,14 @@ struct GalleryView: UIViewControllerRepresentable {
 
                 if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
                     provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] data, error in
-                        guard let self = self else { return }
+                        guard let self else { return }
                         guard let data = data, error == nil else {
-                            print("Error data: \(error?.localizedDescription ?? "Unknown error")")
+                            self.parent.error = AppError.customError("Error data:", "\(error?.localizedDescription ?? "Unknown error")")
                             return
                         }
 
                         guard !data.isEmpty else {
-                            print("Data is empty.")
+                            self.parent.error = AppError.customError("Error data:", "Image is empty")
                             return
                         }
 
@@ -70,7 +71,7 @@ struct GalleryView: UIViewControllerRepresentable {
                                 self.parent.imagesData.append(self.parent.imageManager.dataImage ?? Data())
                             }
                         } else {
-                            print("Failed to convert data to UIImage")
+                            self.parent.error = AppError.customError("Image error:", "Failed to convert data to UIImage")
                         }
                     }
                 }
